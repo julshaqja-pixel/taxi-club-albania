@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Taxi Club Albania - Admin Login</title>
+
+  <link rel="stylesheet" href="./admin-auth.css">
+</head>
+
+<body>
+
+<div class="admin-login-page">
+
+  <div class="admin-login-card">
+
+    <div class="admin-login-brand">
+
+      <div class="admin-login-logo">
+        T
+      </div>
+
+      <div>
+        <h1>Taxi Club Albania</h1>
+        <p>Admin Control Center</p>
+      </div>
+
+    </div>
+
+
+    <div class="security-label">
+      🔒 HYRJE E MBROJTUR
+    </div>
+
+
+    <form id="adminLoginForm">
+
+      <label for="adminEmail">
+        Email
+      </label>
+
+      <input
+        id="adminEmail"
+        type="email"
+        placeholder="admin@email.com"
+        autocomplete="username"
+        required
+      >
+
+
+      <label for="adminPassword">
+        Fjalëkalimi
+      </label>
+
+      <input
+        id="adminPassword"
+        type="password"
+        placeholder="••••••••"
+        autocomplete="current-password"
+        minlength="6"
+        required
+      >
+
+
+      <button
+        id="adminLoginBtn"
+        type="submit"
+      >
+        HYR NË ADMIN
+      </button>
+
+    </form>
+
+
+    <div
+      id="adminAuthMessage"
+      class="auth-message"
+    ></div>
+
+
+    <div class="admin-login-note">
+      Vetëm përdoruesit e regjistruar si administratorë mund të hyjnë në këtë panel.
+    </div>
+
+  </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/config.js"></script>
+<script src="./admin-auth.js"></script>
+
+</body>
+</html>

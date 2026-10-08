@@ -1,0 +1,728 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: #050505;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(circle at top, #220000 0%, #0a0a0a 42%, #040404 100%);
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+  width: min(100%, 460px);
+  margin: 18px auto 30px;
+
+  background: rgba(8, 8, 8, 0.98);
+
+  border: 1px solid rgba(190, 0, 0, 0.34);
+  border-radius: 22px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 26px 80px rgba(0, 0, 0, 0.72),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.topbar {
+  padding: 22px 18px 16px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #b50000 0%,
+      #8d0000 100%
+    );
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.05);
+}
+
+.topbar h1 {
+  margin: 0 0 6px;
+
+  color: #ffffff;
+
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.topbar p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.88);
+
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-panel {
+  padding: 14px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(28, 0, 0, 0.96),
+      rgba(14, 0, 0, 0.98)
+    );
+}
+
+.search-box {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.search-box input {
+  width: 100%;
+  height: 48px;
+
+  padding: 0 14px;
+
+  border:
+    1px solid rgba(255, 35, 35, 0.70);
+
+  border-radius: 14px;
+
+  outline: none;
+
+  background: rgba(8, 8, 8, 0.98);
+
+  color: #ffffff;
+
+  font-size: 15px;
+
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.search-box input::placeholder {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+.search-box input:focus {
+  border-color: #ff3636;
+
+  background: #0d0d0d;
+
+  box-shadow:
+    0 0 0 3px rgba(255, 0, 0, 0.12);
+}
+
+
+/* =====================================================
+   CURRENT LOCATION
+===================================================== */
+
+#currentLocationBtn {
+  width: 100%;
+  height: 48px;
+
+  border: none;
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #505050,
+      #303030
+    );
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    filter 0.18s ease,
+    transform 0.18s ease;
+}
+
+#currentLocationBtn:hover {
+  filter: brightness(1.08);
+}
+
+#currentLocationBtn:active {
+  transform: scale(0.99);
+}
+
+
+/* =====================================================
+   AUTOCOMPLETE
+===================================================== */
+
+.suggestions {
+  position: absolute;
+
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+
+  z-index: 1000;
+
+  max-height: 260px;
+  overflow-y: auto;
+
+  background: rgba(8, 8, 8, 0.99);
+
+  border:
+    1px solid rgba(255, 40, 40, 0.36);
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.75);
+}
+
+.suggestions:empty {
+  display: none;
+}
+
+.suggestion-item {
+  padding: 12px 14px;
+
+  cursor: pointer;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  line-height: 1.35;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.06);
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background: rgba(180, 0, 0, 0.24);
+}
+
+
+/* =====================================================
+   HERO / MAP SECTION
+===================================================== */
+
+.map-hero-frame {
+  position: relative;
+
+  padding:
+    118px
+    38px
+    118px;
+
+  background-image:
+    url("../assets/home-heroes-bg.png");
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+  background-color: #080808;
+
+  overflow: hidden;
+
+  border-top:
+    1px solid rgba(255, 0, 0, 0.22);
+
+  border-bottom:
+    1px solid rgba(255, 0, 0, 0.22);
+}
+
+
+/* Center dark safe zone */
+
+.map-hero-frame::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: 0;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0.20) 0%,
+      rgba(0, 0, 0, 0.28) 42%,
+      rgba(0, 0, 0, 0.04) 74%
+    );
+
+  pointer-events: none;
+}
+
+
+/* Slight bottom fade */
+
+.map-hero-frame::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 90px;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(0, 0, 0, 0.40)
+    );
+
+  pointer-events: none;
+}
+
+
+/* =====================================================
+   MAP CARD
+===================================================== */
+
+.map-hero-inner {
+  position: relative;
+
+  z-index: 2;
+
+  padding: 6px;
+
+  border:
+    1px solid rgba(255, 70, 70, 0.55);
+
+  border-radius: 18px;
+
+  background:
+    rgba(7, 7, 7, 0.84);
+
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.68),
+    0 0 28px rgba(170, 0, 0, 0.12);
+
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+
+/* =====================================================
+   LEAFLET MAP
+===================================================== */
+
+#map {
+  width: 100%;
+  height: 340px;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  background: #151515;
+}
+
+
+/* =====================================================
+   ROUTE STATUS
+===================================================== */
+
+.route-status {
+  position: absolute;
+
+  z-index: 3;
+
+  left: 38px;
+  right: 38px;
+  bottom: 20px;
+
+  padding: 9px 12px;
+
+  text-align: center;
+
+  color: #ffffff;
+
+  background:
+    rgba(20, 0, 0, 0.88);
+
+  border:
+    1px solid rgba(255, 50, 50, 0.30);
+
+  border-radius: 11px;
+
+  font-size: 11px;
+  line-height: 1.4;
+
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+
+/* =====================================================
+   DRIVER INFO
+===================================================== */
+
+#driverInfo {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7, 35, 16, 0.97),
+      rgba(5, 26, 12, 0.97)
+    ) !important;
+
+  border-top:
+    1px solid rgba(70, 230, 110, 0.26) !important;
+
+  border-bottom:
+    1px solid rgba(70, 230, 110, 0.26) !important;
+}
+
+
+/* =====================================================
+   RIDE PANEL
+===================================================== */
+
+.ride-panel {
+  padding: 14px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(24, 0, 0, 0.97),
+      rgba(12, 0, 0, 0.99)
+    );
+}
+
+.ride-info {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 10px;
+
+  margin-bottom: 14px;
+}
+
+.ride-info div {
+  padding: 12px 8px;
+
+  text-align: center;
+
+  background:
+    rgba(17, 17, 17, 0.92);
+
+  border:
+    1px solid rgba(255, 40, 40, 0.18);
+
+  border-radius: 13px;
+}
+
+.ride-info span {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color:
+    rgba(255, 255, 255, 0.62);
+
+  font-size: 11px;
+}
+
+.ride-info strong {
+  display: block;
+
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+
+/* =====================================================
+   REQUEST TAXI
+===================================================== */
+
+#requestRideBtn {
+  width: 100%;
+
+  min-height: 54px;
+
+  border: none;
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #dc0000,
+      #ad0000
+    );
+
+  color: #ffffff;
+
+  font-size: 17px;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 25px rgba(190, 0, 0, 0.28);
+
+  transition:
+    filter 0.18s ease,
+    transform 0.18s ease,
+    opacity 0.18s ease;
+}
+
+#requestRideBtn:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+#requestRideBtn:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+#requestRideBtn:disabled {
+  opacity: 0.52;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+
+/* =====================================================
+   LEAFLET CONTROLS
+===================================================== */
+
+.leaflet-control-zoom a {
+  background:
+    rgba(20, 20, 20, 0.95) !important;
+
+  color:
+    #ffffff !important;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background:
+    #a80000 !important;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background:
+    rgba(18, 18, 18, 0.97);
+
+  color: #ffffff;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .app {
+    width:
+      min(460px, calc(100% - 20px));
+
+    margin:
+      10px auto 24px;
+  }
+
+  .map-hero-frame {
+    padding:
+      100px
+      32px
+      105px;
+
+    background-position:
+      center center;
+  }
+
+  #map {
+    height: 325px;
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE / APP
+===================================================== */
+
+@media (max-width: 640px) {
+
+  .app {
+    width: 100%;
+    min-height: 100vh;
+
+    margin: 0;
+
+    border: none;
+    border-radius: 0;
+
+    box-shadow: none;
+  }
+
+
+  .topbar {
+    padding:
+      calc(17px + env(safe-area-inset-top))
+      15px
+      14px;
+  }
+
+
+  .topbar h1 {
+    font-size: 20px;
+  }
+
+
+  .search-panel {
+    padding: 12px;
+  }
+
+
+  .search-box input,
+  #currentLocationBtn {
+    height: 45px;
+    border-radius: 11px;
+    font-size: 13px;
+  }
+
+
+  .map-hero-frame {
+    padding:
+      82px
+      22px
+      88px;
+
+    background-position:
+      center top;
+
+    background-size:
+      cover;
+  }
+
+
+  .map-hero-inner {
+    padding: 5px;
+
+    border-radius: 15px;
+  }
+
+
+  #map {
+    height: 285px;
+
+    border-radius: 10px;
+  }
+
+
+  .route-status {
+    left: 22px;
+    right: 22px;
+    bottom: 16px;
+
+    padding: 8px 9px;
+
+    font-size: 10px;
+  }
+
+
+  .ride-panel {
+    padding:
+      12px
+      12px
+      calc(15px + env(safe-area-inset-bottom));
+  }
+
+
+  .ride-info {
+    gap: 7px;
+  }
+
+
+  .ride-info div {
+    padding:
+      10px
+      5px;
+  }
+
+
+  .ride-info span {
+    font-size: 10px;
+  }
+
+
+  .ride-info strong {
+    font-size: 14px;
+  }
+
+
+  #requestRideBtn {
+    min-height: 51px;
+    font-size: 16px;
+  }
+
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
+
+@media (max-width: 380px) {
+
+  .map-hero-frame {
+    padding:
+      72px
+      18px
+      76px;
+  }
+
+  #map {
+    height: 260px;
+  }
+
+  .route-status {
+    left: 18px;
+    right: 18px;
+    bottom: 14px;
+  }
+
+}

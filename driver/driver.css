@@ -1,0 +1,818 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background: #0c0c0c;
+
+  color: white;
+}
+
+
+/* =========================
+   APP
+========================= */
+
+.driver-app {
+  width: 100%;
+  max-width: 520px;
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  background: #130000;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.driver-header {
+  min-height: 86px;
+
+  padding: 16px 18px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #3c0000,
+      #a00000
+    );
+
+  border-bottom:
+    1px solid #c00000;
+}
+
+
+.brand-area {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+.brand-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #080808;
+
+  border:
+    2px solid #e00000;
+
+  color: #ef0000;
+
+  font-size: 24px;
+  font-weight: 900;
+}
+
+
+.driver-header h1 {
+  margin: 0;
+
+  font-size: 20px;
+}
+
+
+.driver-header p {
+  margin: 4px 0 0;
+
+  font-size: 13px;
+
+  opacity: 0.75;
+}
+
+
+.connection-badge {
+  padding: 7px 10px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+
+  font-weight: bold;
+
+  letter-spacing: 0.5px;
+}
+
+
+.connection-badge.offline {
+  background: #333;
+
+  color: #aaa;
+}
+
+
+.connection-badge.online {
+  background: #063e18;
+
+  color: #58e483;
+
+  border:
+    1px solid #239f4c;
+}
+
+
+/* =========================
+   DRIVER CARD
+========================= */
+
+.driver-card {
+  display: flex;
+
+  align-items: center;
+
+  padding: 14px 18px;
+
+  gap: 12px;
+
+  background: #1b0000;
+
+  border-bottom:
+    1px solid #390000;
+}
+
+
+.driver-avatar {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #282828;
+
+  font-size: 25px;
+}
+
+
+.driver-details {
+  flex: 1;
+}
+
+
+.driver-details strong {
+  display: block;
+
+  font-size: 16px;
+}
+
+
+.driver-details span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #aaa;
+
+  font-size: 13px;
+}
+
+
+.driver-rating {
+  font-size: 13px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status-panel {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px;
+
+  background: #101010;
+
+  border-bottom:
+    1px solid #2e0000;
+}
+
+
+.status-panel .label {
+  display: block;
+
+  color: #888;
+
+  font-size: 12px;
+}
+
+
+#statusText {
+  display: block;
+
+  margin-top: 4px;
+
+  font-size: 18px;
+}
+
+
+/* =========================
+   SWITCH
+========================= */
+
+.switch {
+  position: relative;
+
+  width: 64px;
+  height: 34px;
+
+  display: inline-block;
+}
+
+
+.switch input {
+  width: 0;
+  height: 0;
+
+  opacity: 0;
+}
+
+
+.slider {
+  position: absolute;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  cursor: pointer;
+
+  background: #444;
+
+  border-radius: 30px;
+
+  transition: 0.25s;
+}
+
+
+.slider::before {
+  position: absolute;
+
+  content: "";
+
+  width: 26px;
+  height: 26px;
+
+  left: 4px;
+  bottom: 4px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  transition: 0.25s;
+}
+
+
+.switch input:checked + .slider {
+  background: #00a13f;
+}
+
+
+.switch input:checked + .slider::before {
+  transform:
+    translateX(30px);
+}
+
+
+/* =========================
+   GPS INFO
+========================= */
+
+.gps-panel {
+  padding: 12px 18px;
+
+  background: #170000;
+
+  border-bottom:
+    1px solid #350000;
+}
+
+
+.gps-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 6px 0;
+}
+
+
+.gps-row span {
+  color: #999;
+
+  font-size: 12px;
+}
+
+
+.gps-row strong {
+  font-size: 12px;
+
+  text-align: right;
+}
+
+
+/* =========================
+   MAP
+========================= */
+
+#driverMap {
+  width: 100%;
+  height: 360px;
+
+  background: #222;
+}
+
+
+/* =========================
+   JOB CARD
+========================= */
+
+.job-card {
+  margin: 15px;
+
+  padding: 16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #310000,
+      #150000
+    );
+
+  border:
+    1px solid #b40000;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0, 0, 0, 0.5);
+}
+
+
+.job-header {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-bottom: 16px;
+}
+
+
+.new-request {
+  color: #ff4c4c;
+
+  font-size: 11px;
+
+  font-weight: bold;
+}
+
+
+.job-header h2 {
+  margin: 4px 0 0;
+
+  font-size: 21px;
+}
+
+
+.countdown {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  border:
+    2px solid #ef0000;
+
+  background: #100000;
+
+  color: white;
+
+  font-size: 19px;
+
+  font-weight: bold;
+}
+
+
+.job-info {
+  border-top:
+    1px solid #3e0000;
+
+  border-bottom:
+    1px solid #3e0000;
+
+  padding: 8px 0;
+}
+
+
+.job-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 7px 0;
+}
+
+
+.job-row span {
+  color: #aaa;
+
+  font-size: 12px;
+}
+
+
+.job-row strong {
+  max-width: 62%;
+
+  text-align: right;
+
+  font-size: 13px;
+}
+
+
+.job-row .income {
+  color: #6be98c;
+
+  font-size: 15px;
+}
+
+
+.job-actions {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 10px;
+
+  margin-top: 15px;
+}
+
+
+.job-actions button {
+  min-height: 48px;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+
+.reject-btn {
+  border:
+    1px solid #b90000;
+
+  background: transparent;
+
+  color: #ff4c4c;
+}
+
+
+.accept-btn {
+  border: none;
+
+  background: #e10000;
+
+  color: white;
+}
+
+
+.accept-btn:hover {
+  background: #ff0000;
+}
+
+
+/* =========================
+   ACTIVE RIDE
+========================= */
+
+.active-ride-card {
+  margin: 15px;
+
+  padding: 18px;
+
+  border-radius: 14px;
+
+  background: #071a0e;
+
+  border:
+    1px solid #147636;
+}
+
+
+.active-ride-title {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #58e483;
+
+  font-size: 12px;
+
+  font-weight: bold;
+}
+
+
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: #38dd6b;
+}
+
+
+.active-ride-card h2 {
+  margin:
+    12px 0 5px;
+}
+
+
+.active-ride-card p {
+  color: #b8b8b8;
+
+  font-size: 13px;
+}
+
+
+.complete-btn {
+  width: 100%;
+
+  margin-top: 10px;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #167c37;
+
+  color: white;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+.stats-section {
+  padding: 18px;
+
+  background: #111;
+}
+
+
+.section-title {
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+}
+
+
+.section-title h2 {
+  margin: 0;
+
+  font-size: 20px;
+}
+
+
+.section-title span {
+  color: #777;
+
+  font-size: 12px;
+}
+
+
+.stats-grid {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 10px;
+}
+
+
+.stat-card {
+  padding: 15px;
+
+  border-radius: 10px;
+
+  background: #1d1d1d;
+
+  border:
+    1px solid #303030;
+}
+
+
+.stat-card span {
+  display: block;
+
+  color: #888;
+
+  font-size: 12px;
+}
+
+
+.stat-card strong {
+  display: block;
+
+  margin-top: 7px;
+
+  font-size: 20px;
+}
+
+
+/* =========================
+   COMMISSION
+========================= */
+
+.commission-card {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr 1fr;
+
+  gap: 8px;
+
+  padding: 18px;
+
+  background: #1b0000;
+}
+
+
+.commission-card div {
+  padding: 10px 5px;
+
+  text-align: center;
+}
+
+
+.commission-card span {
+  display: block;
+
+  color: #999;
+
+  font-size: 11px;
+}
+
+
+.commission-card strong {
+  display: block;
+
+  margin-top: 7px;
+
+  font-size: 14px;
+}
+
+
+.commission {
+  color: #ff6767;
+}
+
+
+.net {
+  color: #65df82;
+}
+
+
+/* =========================
+   TEST PANEL
+========================= */
+
+.test-panel {
+  padding: 18px;
+
+  text-align: center;
+
+  background: #0c0c0c;
+}
+
+
+.test-panel p {
+  color: #777;
+
+  font-size: 11px;
+}
+
+
+#simulateJobBtn {
+  width: 100%;
+
+  padding: 13px;
+
+  border:
+    1px dashed #a70000;
+
+  border-radius: 8px;
+
+  background: #200000;
+
+  color: #ff6060;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   UTILITIES
+========================= */
+
+.hidden {
+  display: none !important;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 520px) {
+
+  #driverMap {
+    height: 42vh;
+
+    min-height: 300px;
+  }
+
+  .driver-header h1 {
+    font-size: 17px;
+  }
+
+}

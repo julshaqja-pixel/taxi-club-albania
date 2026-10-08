@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taxi Club Albania - Driver</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="./driver.css">
+</head>
+
+<body>
+
+<div class="driver-app">
+
+  <header class="driver-header">
+
+    <div class="brand-area">
+      <div class="brand-icon">T</div>
+
+      <div>
+        <h1>Taxi Club Albania</h1>
+        <p>Paneli i Shoferit</p>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div
+        id="connectionBadge"
+        class="connection-badge offline"
+      >
+        OFFLINE
+      </div>
+
+      <button
+        id="logoutBtn"
+        style="
+          min-height:30px;
+          padding:0 9px;
+          border:1px solid #6b1a1a;
+          border-radius:7px;
+          background:#250000;
+          color:#ff8a8a;
+          cursor:pointer;
+          font-size:10px;
+          font-weight:bold;
+        "
+      >
+        DIL
+      </button>
+    </div>
+
+  </header>
+
+
+  <section class="driver-card">
+
+    <div class="driver-avatar">
+      🚕
+    </div>
+
+    <div class="driver-details">
+
+      <strong id="driverDisplayName">
+        --
+      </strong>
+
+      <span id="driverDisplayPlate">
+        --
+      </span>
+
+    </div>
+
+    <div class="driver-rating">
+      ⭐ 5.0
+    </div>
+
+  </section>
+
+
+  <section class="status-panel">
+
+    <div>
+      <span class="label">
+        Statusi
+      </span>
+
+      <strong id="statusText">
+        Je Offline
+      </strong>
+    </div>
+
+    <label class="switch">
+      <input
+        type="checkbox"
+        id="onlineSwitch"
+      >
+
+      <span class="slider"></span>
+    </label>
+
+  </section>
+
+
+  <section class="gps-panel">
+
+    <div class="gps-row">
+      <span>GPS</span>
+      <strong id="gpsStatus">
+        Jo aktiv
+      </strong>
+    </div>
+
+    <div class="gps-row">
+      <span>Latitude</span>
+      <strong id="latitude">
+        --
+      </strong>
+    </div>
+
+    <div class="gps-row">
+      <span>Longitude</span>
+      <strong id="longitude">
+        --
+      </strong>
+    </div>
+
+  </section>
+
+
+  <div id="driverMap"></div>
+
+
+  <section
+    id="jobCard"
+    class="job-card hidden"
+  >
+
+    <div class="job-header">
+
+      <div>
+        <span class="new-request">
+          KËRKESË E RE
+        </span>
+
+        <h2>
+          Udhëtim i ri
+        </h2>
+      </div>
+
+      <div
+        id="jobCountdown"
+        class="countdown"
+      >
+        15
+      </div>
+
+    </div>
+
+    <div class="job-info">
+
+      <div class="job-row">
+        <span>📍 Nisja</span>
+        <strong id="jobPickup">--</strong>
+      </div>
+
+      <div class="job-row">
+        <span>🏁 Destinacioni</span>
+        <strong id="jobDestination">--</strong>
+      </div>
+
+      <div class="job-row">
+        <span>📏 Distanca</span>
+        <strong id="jobDistance">--</strong>
+      </div>
+
+      <div class="job-row">
+        <span>⏱ Koha</span>
+        <strong id="jobDuration">--</strong>
+      </div>
+
+      <div class="job-row">
+        <span>💰 Çmimi</span>
+        <strong id="jobPrice">--</strong>
+      </div>
+
+      <div class="job-row">
+        <span>💵 Fitimi juaj</span>
+        <strong
+          id="jobDriverIncome"
+          class="income"
+        >
+          --
+        </strong>
+      </div>
+
+    </div>
+
+    <div class="job-actions">
+
+      <button
+        id="rejectJobBtn"
+        class="reject-btn"
+      >
+        REFUZO
+      </button>
+
+      <button
+        id="acceptJobBtn"
+        class="accept-btn"
+      >
+        PRANO
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <section
+    id="activeRideCard"
+    class="active-ride-card hidden"
+  >
+
+    <div class="active-ride-title">
+
+      <span class="pulse-dot"></span>
+
+      <span id="activeRideTitle">
+        UDHËTIM AKTIV
+      </span>
+
+    </div>
+
+    <h2 id="activeRideDestination">
+      --
+    </h2>
+
+    <p id="activeRideStatus">
+      Nisuni drejt klientit.
+    </p>
+
+    <button
+      id="arrivedClientBtn"
+      class="complete-btn"
+    >
+      MBËRRITA TE KLIENTI
+    </button>
+
+    <button
+      id="startRideBtn"
+      class="complete-btn hidden"
+    >
+      FILLO UDHËTIMIN
+    </button>
+
+    <button
+      id="completeRideBtn"
+      class="complete-btn hidden"
+    >
+      PËRFUNDO UDHËTIMIN
+    </button>
+
+  </section>
+
+
+  <section class="stats-section">
+
+    <div class="section-title">
+      <h2>Sot</h2>
+      <span>Statistikat</span>
+    </div>
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <span>Punë</span>
+        <strong id="todayJobs">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Pranuar</span>
+        <strong id="todayAccepted">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Refuzuar</span>
+        <strong id="todayRejected">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Xhiro</span>
+        <strong id="todayRevenue">0 LEK</strong>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="commission-card">
+
+    <div>
+      <span>Xhiro Totale</span>
+      <strong id="grossRevenue">
+        0 LEK
+      </strong>
+    </div>
+
+    <div>
+      <span>Komision 15%</span>
+      <strong
+        id="commissionAmount"
+        class="commission"
+      >
+        0 LEK
+      </strong>
+    </div>
+
+    <div>
+      <span>Për Shoferin</span>
+      <strong
+        id="netRevenue"
+        class="net"
+      >
+        0 LEK
+      </strong>
+    </div>
+
+  </section>
+
+</div>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/config.js"></script>
+<script src="./driver.js"></script>
+
+</body>
+</html>

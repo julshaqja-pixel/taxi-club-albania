@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Taxi Club Albania - Admin</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="./admin.css"
+  >
+</head>
+
+<body>
+
+<div class="admin-shell">
+
+  <!-- =========================
+       SIDEBAR
+  ========================== -->
+
+  <aside class="sidebar">
+
+    <div class="sidebar-brand">
+
+      <div class="brand-logo">
+        T
+      </div>
+
+      <div>
+        <strong>Taxi Club</strong>
+        <span>Admin Center</span>
+      </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+      <button
+        class="nav-item active"
+        data-view="dashboard"
+      >
+        <span>▦</span>
+        Dashboard
+      </button>
+
+      <button
+        class="nav-item"
+        data-view="drivers"
+      >
+        <span>🚕</span>
+        Shoferët
+      </button>
+
+      <button
+        class="nav-item"
+        data-view="rides"
+      >
+        <span>📋</span>
+        Punët
+      </button>
+
+      <button
+        class="nav-item"
+        data-view="offers"
+      >
+        <span>⏱</span>
+        Historiku
+      </button>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+      <div class="live-dot"></div>
+
+      <span>
+        System Live
+      </span>
+
+    </div>
+
+  </aside>
+
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+
+  <main class="main-area">
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+
+      <div>
+
+        <h1 id="pageTitle">
+          Dashboard
+        </h1>
+
+        <p>
+          Menaxhimi live i Taxi Club Albania
+        </p>
+
+      </div>
+
+
+      <div class="header-actions">
+
+        <button
+          id="refreshAdminBtn"
+          class="secondary-btn"
+        >
+          Rifresko
+        </button>
+
+        <div class="admin-badge">
+          ADMIN
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- =========================
+         DASHBOARD VIEW
+    ========================== -->
+
+    <section
+      id="dashboardView"
+      class="view-section active-view"
+    >
+
+      <!-- SUMMARY -->
+
+      <div class="summary-row">
+
+        <div class="summary-box">
+
+          <span>
+            Shoferë Online
+          </span>
+
+          <strong id="onlineDriversCount">
+            0
+          </strong>
+
+          <small>
+            të lidhur aktualisht
+          </small>
+
+        </div>
+
+
+        <div class="summary-box">
+
+          <span>
+            Punë Aktive
+          </span>
+
+          <strong id="activeRidesCount">
+            0
+          </strong>
+
+          <small>
+            në proces
+          </small>
+
+        </div>
+
+
+        <div class="summary-box">
+
+          <span>
+            Në Pritje
+          </span>
+
+          <strong id="pendingRidesCount">
+            0
+          </strong>
+
+          <small>
+            kërkojnë taxi
+          </small>
+
+        </div>
+
+
+        <div class="summary-box">
+
+          <span>
+            Xhiro Totale
+          </span>
+
+          <strong id="totalRevenue">
+            0 LEK
+          </strong>
+
+          <small>
+            nga shoferët
+          </small>
+
+        </div>
+
+
+        <div class="summary-box">
+
+          <span>
+            Komision
+          </span>
+
+          <strong id="totalCommission">
+            0 LEK
+          </strong>
+
+          <small>
+            15%
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- MAP + LIVE RIDES -->
+
+      <div class="dashboard-grid">
+
+        <div class="panel map-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <h2>Harta Live</h2>
+              <span>Shoferët online</span>
+            </div>
+
+            <span
+              id="mapOnlineCount"
+              class="mini-badge"
+            >
+              0 online
+            </span>
+
+          </div>
+
+          <div id="adminMap"></div>
+
+        </div>
+
+
+        <div class="panel live-rides-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <h2>Punët Live</h2>
+              <span>Aktive dhe pending</span>
+            </div>
+
+          </div>
+
+          <div
+            id="liveRidesList"
+            class="live-rides-list"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- RECENT RIDES -->
+
+      <div class="panel recent-panel">
+
+        <div class="panel-header">
+
+          <div>
+            <h2>Punët e Fundit</h2>
+            <span>Aktiviteti më i fundit</span>
+          </div>
+
+          <button
+            id="showAllRidesBtn"
+            class="link-btn"
+          >
+            Shiko të gjitha
+          </button>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+          <table class="data-table">
+
+            <thead>
+
+              <tr>
+                <th>ID</th>
+                <th>Nisja</th>
+                <th>Destinacioni</th>
+                <th>Taxi</th>
+                <th>Çmimi</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+
+            </thead>
+
+            <tbody id="recentRidesTable"></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         DRIVERS VIEW
+    ========================== -->
+
+    <section
+      id="driversView"
+      class="view-section"
+    >
+
+      <div class="panel">
+
+        <div class="panel-header">
+
+          <div>
+            <h2>Shoferët</h2>
+            <span>Statusi dhe performanca</span>
+          </div>
+
+          <input
+            id="driverSearchInput"
+            class="search-input"
+            placeholder="Kërko shofer..."
+          >
+
+        </div>
+
+
+        <div
+          id="driversGrid"
+          class="drivers-grid"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         RIDES VIEW
+    ========================== -->
+
+    <section
+      id="ridesView"
+      class="view-section"
+    >
+
+      <div class="panel">
+
+        <div class="panel-header">
+
+          <div>
+            <h2>Të gjitha Punët</h2>
+            <span id="ridesCountLabel">
+              0 ride
+            </span>
+          </div>
+
+        </div>
+
+
+        <div class="filters-bar">
+
+          <select id="rideStatusFilter">
+
+            <option value="all">
+              Të gjitha
+            </option>
+
+            <option value="pending">
+              Pending
+            </option>
+
+            <option value="accepted">
+              Active
+            </option>
+
+            <option value="completed">
+              Completed
+            </option>
+
+            <option value="cancelled">
+              Cancelled
+            </option>
+
+            <option value="no_driver">
+              No Driver
+            </option>
+
+          </select>
+
+
+          <input
+            id="rideSearchInput"
+            placeholder="Kërko adresë..."
+          >
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+          <table class="data-table">
+
+            <thead>
+
+              <tr>
+                <th>ID</th>
+                <th>Nisja</th>
+                <th>Destinacioni</th>
+                <th>Taxi</th>
+                <th>Dist.</th>
+                <th>Koha</th>
+                <th>Çmimi</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+
+            </thead>
+
+            <tbody id="ridesTable"></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         OFFERS VIEW
+    ========================== -->
+
+    <section
+      id="offersView"
+      class="view-section"
+    >
+
+      <div class="panel">
+
+        <div class="panel-header">
+
+          <div>
+            <h2>Historiku i Ofertave</h2>
+            <span>
+              Accepted / Declined / Timeout
+            </span>
+          </div>
+
+        </div>
+
+        <div
+          id="offersTimeline"
+          class="offers-timeline"
+        ></div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       RIDE DRAWER
+  ========================== -->
+
+  <div
+    id="drawerOverlay"
+    class="drawer-overlay"
+  ></div>
+
+
+  <aside
+    id="rideDrawer"
+    class="ride-drawer"
+  >
+
+    <div class="drawer-header">
+
+      <div>
+
+        <span class="drawer-label">
+          RIDE
+        </span>
+
+        <h2 id="drawerRideId">
+          #--------
+        </h2>
+
+      </div>
+
+      <button
+        id="closeDrawerBtn"
+        class="close-btn"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <div class="drawer-content">
+
+      <div class="drawer-section">
+
+        <h3>Udhëtimi</h3>
+
+
+        <div class="route-block">
+
+          <div class="route-point">
+
+            <span class="point-dot pickup-dot"></span>
+
+            <div>
+              <small>Nisja</small>
+
+              <strong id="drawerPickup">
+                -
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div class="route-line-small"></div>
+
+
+          <div class="route-point">
+
+            <span class="point-dot destination-dot"></span>
+
+            <div>
+              <small>Destinacioni</small>
+
+              <strong id="drawerDestination">
+                -
+              </strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="drawer-metrics">
+
+        <div>
+          <span>Distanca</span>
+          <strong id="drawerDistance">-</strong>
+        </div>
+
+        <div>
+          <span>Koha</span>
+          <strong id="drawerDuration">-</strong>
+        </div>
+
+        <div>
+          <span>Çmimi</span>
+          <strong id="drawerPrice">-</strong>
+        </div>
+
+      </div>
+
+
+      <div class="drawer-section">
+
+        <h3>Shoferi Aktual</h3>
+
+        <div
+          id="drawerCurrentDriver"
+          class="current-driver-card"
+        >
+          Nuk ka shofer të caktuar
+        </div>
+
+      </div>
+
+
+      <div class="drawer-section">
+
+        <h3>Menaxhimi i Punës</h3>
+
+
+        <button
+          id="sendNearestBtn"
+          class="drawer-action primary-action"
+        >
+          DËRGO TE MË I AFËRTI
+        </button>
+
+
+        <div class="manual-assign">
+
+          <label>
+            Cakto manualisht
+          </label>
+
+          <select id="manualDriverSelect"></select>
+
+          <button
+            id="assignManualBtn"
+            class="drawer-action success-action"
+          >
+            CAKTO SHOFERIN
+          </button>
+
+        </div>
+
+
+        <button
+          id="removeDriverBtn"
+          class="drawer-action warning-action"
+        >
+          HIQE NGA SHOFERI AKTUAL
+        </button>
+
+
+        <button
+          id="cancelRideBtn"
+          class="drawer-action danger-action"
+        >
+          ANULO UDHËTIMIN
+        </button>
+
+      </div>
+
+
+      <div class="drawer-section">
+
+        <h3>Historiku</h3>
+
+        <div
+          id="drawerHistory"
+          class="ride-history"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+</div>
+
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+></script>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script
+  src="../shared/config.js"
+></script>
+
+<script
+  src="./admin.js"
+></script>
+
+</body>
+</html>

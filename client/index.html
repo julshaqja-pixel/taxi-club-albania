@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#9b0000">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Taxi Club">
+  <title>Taxi Club Albania</title>
+
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="./clients.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <h1>Taxi Club Albania</h1>
+    <p>Kuq e Zi, Në Shërbim!</p>
+  </header>
+
+  <section class="search-panel">
+    <div class="search-box">
+      <input id="pickup" type="text" placeholder="Nga ku niseni?" autocomplete="off">
+      <div id="pickupSuggestions" class="suggestions"></div>
+    </div>
+
+    <div class="search-box">
+      <input id="destination" type="text" placeholder="Ku dëshironi të shkoni?" autocomplete="off">
+      <div id="destinationSuggestions" class="suggestions"></div>
+    </div>
+
+    <button id="currentLocationBtn">Përdor pozicionin aktual</button>
+  </section>
+
+  <section class="map-hero-frame">
+    <div class="map-hero-inner">
+      <div id="map"></div>
+    </div>
+
+    <div id="routeStatus" class="route-status">
+      Zgjidh pikën e nisjes dhe destinacionin
+    </div>
+  </section>
+
+  <div id="driverInfo" style="display:none;padding:14px;background:#071a0e;border-top:1px solid #147636;border-bottom:1px solid #147636;">
+    <strong id="driverName" style="display:block;">--</strong>
+    <span id="driverPlate" style="display:block;margin-top:4px;color:#aaa;font-size:13px;">--</span>
+    <span style="display:block;margin-top:6px;color:#58e483;font-size:12px;">Shoferi po vjen drejt jush</span>
+  </div>
+
+  <section class="ride-panel">
+    <div class="ride-info">
+      <div><span>Distanca</span><strong id="distance">-- km</strong></div>
+      <div><span>Koha</span><strong id="duration">-- min</strong></div>
+      <div><span>Çmimi</span><strong id="price">-- LEK</strong></div>
+    </div>
+
+    <button id="requestRideBtn" disabled>KËRKO TAXI</button>
+  </section>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/config.js"></script>
+<script src="./client.js"></script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", async () => {
+      try {
+        const registration = await navigator.serviceWorker.register("../service-worker.js", { scope: "../" });
+        console.log("Taxi Club PWA aktive:", registration.scope);
+      } catch (error) {
+        console.error("Service Worker nuk u regjistrua:", error);
+      }
+    });
+  }
+</script>
+</body>
+</html>

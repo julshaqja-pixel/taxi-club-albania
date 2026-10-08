@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Taxi Club Albania - Hyrja e Shoferit</title>
+
+  <link rel="stylesheet" href="./auth.css">
+</head>
+
+<body>
+
+<div class="auth-page">
+
+  <div class="auth-card">
+
+    <div class="auth-brand">
+      <div class="auth-logo">T</div>
+
+      <div>
+        <h1>Taxi Club Albania</h1>
+        <p>Platforma e Shoferit</p>
+      </div>
+    </div>
+
+
+    <div class="auth-tabs">
+
+      <button
+        id="loginTabBtn"
+        class="auth-tab active"
+      >
+        HYR
+      </button>
+
+      <button
+        id="registerTabBtn"
+        class="auth-tab"
+      >
+        REGJISTROHU
+      </button>
+
+    </div>
+
+
+    <!-- LOGIN -->
+
+    <form
+      id="loginForm"
+      class="auth-form"
+    >
+
+      <label>
+        Email
+      </label>
+
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="shofer@email.com"
+        required
+      >
+
+
+      <label>
+        Fjalëkalimi
+      </label>
+
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="••••••••"
+        minlength="6"
+        required
+      >
+
+
+      <button
+        type="submit"
+        class="primary-auth-btn"
+      >
+        HYR NË PANEL
+      </button>
+
+    </form>
+
+
+    <!-- REGISTER -->
+
+    <form
+      id="registerForm"
+      class="auth-form hidden"
+    >
+
+      <label>
+        Emri dhe Mbiemri
+      </label>
+
+      <input
+        id="registerName"
+        type="text"
+        placeholder="Emri i shoferit"
+        required
+      >
+
+
+      <label>
+        Telefoni
+      </label>
+
+      <input
+        id="registerPhone"
+        type="tel"
+        placeholder="06..."
+        required
+      >
+
+
+      <label>
+        Targa
+      </label>
+
+      <input
+        id="registerPlate"
+        type="text"
+        placeholder="AA 001 TX"
+        required
+      >
+
+
+      <label>
+        Email
+      </label>
+
+      <input
+        id="registerEmail"
+        type="email"
+        placeholder="shofer@email.com"
+        required
+      >
+
+
+      <label>
+        Fjalëkalimi
+      </label>
+
+      <input
+        id="registerPassword"
+        type="password"
+        placeholder="Minimumi 6 karaktere"
+        minlength="6"
+        required
+      >
+
+
+      <button
+        type="submit"
+        class="primary-auth-btn"
+      >
+        KRIJO LLOGARINË
+      </button>
+
+    </form>
+
+
+    <div
+      id="authMessage"
+      class="auth-message"
+    ></div>
+
+
+    <div class="auth-note">
+      Pas regjistrimit, llogaria duhet të aprovohet nga administratori përpara se shoferi të dalë ONLINE.
+    </div>
+
+  </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/config.js"></script>
+<script src="./auth.js"></script>
+
+</body>
+</html>
